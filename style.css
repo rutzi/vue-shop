@@ -88,6 +88,7 @@ header{
 .prdoduct{
 	margin-top: 5%;
 	display: flex;
+	min-height: 73vh;
 }
 .prdoduct >*{
 	margin-right: 25px
