@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div id="app">
+		<header>
+			<div class="header wrap">
+				<a href="index.html" class="logo">
+					<h1 v-text='text'></h1>
+				</a>
+				<a href="" class="card" @click.prevent='showCheckout'>
+					<p>Card <span>{{numberProducts}}</span></p>
+				</a>
+			</div>
+		</header>
+		<section class="main wrap" v-if='showProduct'>
+			<div class="prdoduct">
+				<a href="#">
+					<img :src="product.image" alt="Photo">
+				</a>
+				<div class="infoblock">
+					<h2 v-text='product.title'></h2>
+					<p v-text='product.description'></p>
+					<p>Price: {{ product.price | formatPrice }}</p>
+					<a href="#" class= 'btn addToCard' @click.prevent='addToCard'>{{mess}}</a>
+				</div>
+			</div>
+		</section>
+		<section v-else>
+			<div class="order wrap">
+				<h2>enter your information</h2>
+				<label for="Name">
+					<p>First Name:</p> 
+					<input v-model='order.firstName' type="text">
+				</label>
+				<label for="firstName">
+					<p>Last Name:</p> 
+					<input v-model='order.lastName' type="text">
+				</label>
+				<div class="form-group">
+					<label for="adress">
+						<p>Adress:</p> 
+						<input v-model='order.adress' type="text">
+					</label>
+					<label for="adress">
+						<p>City:</p> 
+						<input v-model='order.city' type="text">
+					</label>
+					<label for="state" class="orderFixWidth">
+						<p>State:</p>
+						<select name="state" v-model="order.state">
+							<!--<option disabled value="">State</option>
+							<option :value='states.AL'>AL</option>
+							<option :value='states.AR'>AR</option>
+							<option :value='states.CA'>CA</option>
+							<option :value='states.NV'>NV</option>-->
+							<option disabled value="">State</option>
+							<option v-for='(state, key) in states' :value='state'>{{key}}</option>
+						</select>
+					</label>
+					<label for="zip" class="orderFixWidth">
+						<p>Zip/Postal Code:</p> 
+						<input v-model='order.zip' type="text">
+					</label>
+					<label for="gift">
+						<p>Ship as gift?</p>
+						<input type="checkbox" id='gift' v-model='order.gift' value="true">
+					</label>
+					<div class="method">
+						<label for="home">Home</label>
+						<input name = 'mehod' type="radio" v-model='order.method' id='home' value="Home">
+						<label for="bussines">Bussines</label>
+						<input name = 'mehod' type="radio" v-model='order.method' id='bussines' value="Bussines">
+					</div>
+					<a href="#" class="btn" @click.prevent = 'placeOrder'>Place order</a>
+				</div>
+				<div class="orderInfo">
+					<pre>Your First Name: {{order.firstName}}</pre>
+					<pre>Last Name: {{order.lastName}}</pre>
+					<pre>Adress: {{order.adress}}</pre>
+					<pre>City: {{order.city}}</pre>
+					<pre>State: {{order.state}}</pre>
+					<pre>Zip: {{order.zip}}</pre>
+					<pre>Gift: {{ order.gift | giftApp }}</pre>
+					<pre>Method: {{order.method}}</pre>
+				</div>
+			</div>
+		</section>
+	</div>
+	<script src="main.js"></script>
+</body>
+</html>
